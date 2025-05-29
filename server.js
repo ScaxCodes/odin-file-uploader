@@ -4,6 +4,8 @@ const setLocals = require("./middleware/setLocals");
 const router = require("./routes/router");
 const methodOverride = require("method-override");
 
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const { PrismaClient } = require("./generated/prisma");
 const session = require("express-session");
 const passport = require("passport");
 const initializePassport = require("./auth/passport-config");
@@ -15,12 +17,22 @@ server.use(express.urlencoded({ extended: false }));
 server.use(methodOverride("_method"));
 server.use(express.static("public"));
 
-// TODO: Setup prisma-session-store
-
-// server.use(
-//   session({ secret: "cats", resave: false, saveUninitialized: false })
-// );
-// server.use(passport.session());
+server.use(
+  session({
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+    },
+    secret: "a santa at nasa",
+    resave: true,
+    saveUninitialized: true,
+    store: new PrismaSessionStore(new PrismaClient(), {
+      checkPeriod: 2 * 60 * 1000, // ms
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
+  })
+);
+server.use(passport.session());
 
 const path = require("node:path");
 server.set("views", path.join(__dirname, "views"));
