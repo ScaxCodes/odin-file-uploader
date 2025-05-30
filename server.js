@@ -5,7 +5,7 @@ const router = require("./routes/router");
 const methodOverride = require("method-override");
 
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
-const { PrismaClient } = require("./generated/prisma");
+const prisma = require("./db/prisma");
 const session = require("express-session");
 const passport = require("passport");
 const initializePassport = require("./auth/passport-config");
@@ -25,7 +25,7 @@ server.use(
     secret: "a santa at nasa",
     resave: true,
     saveUninitialized: true,
-    store: new PrismaSessionStore(new PrismaClient(), {
+    store: new PrismaSessionStore(prisma, {
       checkPeriod: 2 * 60 * 1000, // ms
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
