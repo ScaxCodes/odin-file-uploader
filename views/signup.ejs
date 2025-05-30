@@ -23,6 +23,10 @@
           value="<%=
         formData?.username || '' %>"
         />
+        <% const usernameError = (errors || []).find(e => e.path ===
+        'username'); %> <% if (usernameError) { %>
+        <p class="error"><%= usernameError.msg %></p>
+        <% } %>
 
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required />

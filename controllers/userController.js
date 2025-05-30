@@ -4,19 +4,30 @@ const prisma = require("../db/prisma");
 
 const addUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
+  const formData = { username };
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await prisma.user.create({
-    data: {
-      username,
-      password: hashedPassword,
-    },
-  });
+  try {
+    const user = await prisma.user.create({
+      data: {
+        username,
+        password: hashedPassword,
+      },
+    });
 
-  console.log("New user created:", user);
+    console.log("New user created:", user);
+    res.redirect("/");
+  } catch (err) {
+    if (err.code === "P2002" && err.meta?.target?.includes("username")) {
+      return res.render("signup", {
+        errors: [{ path: "username", msg: "Username already exists" }],
+        formData,
+      });
+    }
 
-  res.redirect("/");
+    throw err;
+  }
 });
 
 module.exports = {
