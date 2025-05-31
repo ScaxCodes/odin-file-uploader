@@ -5,7 +5,13 @@ const userController = require("../controllers/userController");
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.render("index");
+  if (!req.user) {
+    res.render("index");
+  } else {
+    res.send(
+      `<h1>Welcome back, ${req.user.username}!</h1><p><a href="/logout">Logout</a></p>`
+    );
+  }
 });
 
 router.get("/signup", (req, res) => {
