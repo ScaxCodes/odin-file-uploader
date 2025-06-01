@@ -1,3 +1,6 @@
+/* ─────────────────────────────────────────────────────────────── */
+/* Base styles and reset                                           */
+/* ─────────────────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,8 +15,57 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
+  align-items: flex-start; /* changed from center for dashboard usability */
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/* Shared styles                                                  */
+/* ─────────────────────────────────────────────────────────────── */
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #00ffd1;
+}
+
+p {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+a {
+  color: #00ffd1;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #00ffd1;
+  color: #121212;
+  font-family: inherit;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+button:hover {
+  background-color: #00e0ba;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/* Form (login/signup) styles                                     */
+/* ─────────────────────────────────────────────────────────────── */
+.centered-page {
+  display: flex;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
 }
 
 .form-container {
@@ -24,12 +76,6 @@ body {
   padding: 2rem 2.5rem;
   width: 100%;
   max-width: 400px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #00ffd1;
 }
 
 form {
@@ -54,41 +100,9 @@ input {
   font-family: inherit;
   transition: border-color 0.2s;
 }
-
 input:focus {
   border-color: #00ffd1;
   outline: none;
-}
-
-button {
-  background-color: #00ffd1;
-  color: #121212;
-  font-family: inherit;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-button:hover {
-  background-color: #00e0ba;
-}
-
-p {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
-
-a {
-  color: #00ffd1;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 .error {
@@ -97,4 +111,108 @@ a:hover {
   margin-bottom: 24px;
   font-weight: bold;
   min-height: 17.5px;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/* Dashboard styles                                               */
+/* ─────────────────────────────────────────────────────────────── */
+.dashboard-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+header h2 {
+  color: #00ffd1;
+  font-size: 1.5rem;
+}
+
+header form button {
+  padding: 0.5rem 1rem;
+}
+
+/* Folder grid */
+.folders-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.folder {
+  background: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 6px;
+  text-align: center;
+  padding: 0.75rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.folder.selected {
+  border-color: #00ffd1;
+  background: #2a2a2a;
+}
+
+.folder a {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.folder a:hover {
+  text-decoration: underline;
+}
+
+/* Actions: upload, create folder */
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.actions button {
+  flex: 1;
+}
+
+/* Files section */
+.files-section {
+  margin-top: 1rem;
+}
+
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.file-card {
+  background: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0.75rem;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.file-card p {
+  word-break: break-word;
+  margin-bottom: 0.5rem;
+}
+
+.file-card:hover {
+  border-color: #00ffd1;
+  background: #2a2a2a;
+}
+
+.no-files {
+  text-align: center;
+  color: #ccc;
+  font-style: italic;
+  margin-top: 1rem;
 }

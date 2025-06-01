@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScaxCodes File Uploader – Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <header>
+        <h2>Welcome <%= currentUser.username %></h2>
+        <section class="action">
+          <button onclick="location.href='/logout'">Logout</button>
+        </section>
+      </header>
+
+      <section class="folders-section">
+        <% folders.forEach((folder) => { %>
+        <div
+          class="folder <%= folder.id === selectedFolderId ? 'selected' : '' %>"
+        >
+          <a href="/dashboard?folder=<%= folder.id %>"><%= folder.name %></a>
+        </div>
+        <% }) %>
+      </section>
+
+      <section class="actions">
+        <button
+          onclick="location.href='/upload?folder=<%= selectedFolderId %>'"
+        >
+          Upload File
+        </button>
+        <button onclick="location.href='/create-folder'">Create Folder</button>
+      </section>
+
+      <section class="files-section">
+        <% if (files.length > 0) { %>
+        <div class="files-grid">
+          <% files.forEach((file) => { %>
+          <div class="file-card">
+            <p><%= file.name %></p>
+            <a href="/download/<%= file.id %>">Download</a>
+          </div>
+          <% }) %>
+        </div>
+        <% } else { %>
+        <p class="no-files">No files in this folder.</p>
+        <% } %>
+      </section>
+    </div>
+  </body>
+</html>
