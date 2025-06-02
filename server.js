@@ -20,7 +20,7 @@ server.use(express.static("public"));
 server.use(
   session({
     cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in ms
     },
     secret: "a santa at nasa",
     resave: true,
