@@ -1,29 +1,22 @@
 const { Router } = require("express");
-const controller = require("../controllers/controller");
+const passport = require("passport");
 const signupValidator = require("../controllers/signupValidator");
 const userController = require("../controllers/userController");
+const { ensureAuthenticated } = require("../auth/auth-middleware");
+const viewController = require("../controllers/viewController");
+
 const router = Router();
-const passport = require("passport");
 
 router.get("/", (req, res) => {
-  if (!req.user) {
-    res.render("index");
-  } else {
-    res.render("dashboard", {
-      folders: [
-        { id: 1, name: "Home" },
-        { id: 2, name: "Documents" },
-      ],
-      selectedFolderId: Number(req.query.folder) || 1, // default to “home”
-      files: [
-        // example array of files (only from the selected folder):
-        { id: 10, name: "report.pdf" },
-        { id: 11, name: "image.png" },
-        // ...
-      ],
-    });
-  }
+  res.redirect("/login");
 });
+
+router.get("/login", (req, res) => {
+  if (req.isAuthenticated()) return res.redirect("/dashboard");
+  res.render("login");
+});
+
+router.get("/dashboard", ensureAuthenticated, viewController.renderDashboard);
 
 router.get("/signup", (req, res) => {
   res.render("signup", { errors: [], formData: {} });

@@ -3,7 +3,7 @@ function ensureAuthenticated(req, res, next) {
     return next();
   }
   res.status(401).render("unauthorized", {
-    message: "You must be logged in to view this page.",
+    message: "You must be logged in<br> to view this page.",
   });
 }
 
