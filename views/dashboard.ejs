@@ -35,7 +35,7 @@
         >
           Upload File
         </button>
-        <button onclick="location.href='/create-folder'">Create Folder</button>
+        <button id="openFolderModal">Create Folder</button>
       </section>
 
       <section class="files-section">
@@ -53,5 +53,46 @@
         <% } %>
       </section>
     </div>
+
+    <div id="folderModal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Create a New Folder</h3>
+        <form action="/dashboard/createfolder" method="POST">
+          <label for="folderName">Folder Name</label>
+          <input
+            type="text"
+            id="folderName"
+            name="name"
+            required
+            placeholder="Enter folder name"
+          />
+
+          <div class="modal-buttons">
+            <button type="submit" class="btn btn-success">Create</button>
+            <button
+              type="button"
+              id="cancelCreateFolder"
+              class="btn btn-secondary"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("openFolderModal")
+        .addEventListener("click", () => {
+          document.getElementById("folderModal").classList.remove("hidden");
+        });
+
+      document
+        .getElementById("cancelCreateFolder")
+        .addEventListener("click", () => {
+          document.getElementById("folderModal").classList.add("hidden");
+        });
+    </script>
   </body>
 </html>
