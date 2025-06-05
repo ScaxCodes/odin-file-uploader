@@ -4,6 +4,7 @@ const signupValidator = require("../controllers/signupValidator");
 const userController = require("../controllers/userController");
 const { ensureAuthenticated } = require("../auth/auth-middleware");
 const viewController = require("../controllers/viewController");
+const folderController = require("../controllers/folderController");
 
 const router = Router();
 
@@ -16,8 +17,6 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-router.get("/dashboard", ensureAuthenticated, viewController.renderDashboard);
-
 router.get("/signup", (req, res) => {
   res.render("signup", { errors: [], formData: {} });
 });
@@ -29,6 +28,14 @@ router.post(
     successRedirect: "/",
     failureRedirect: "/",
   })
+);
+
+router.get("/dashboard", ensureAuthenticated, viewController.renderDashboard);
+
+router.post(
+  "/dashboard/folders",
+  ensureAuthenticated,
+  folderController.addFolder
 );
 
 router.get("/logout", (req, res, next) => {
