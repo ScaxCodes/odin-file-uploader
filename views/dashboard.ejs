@@ -86,12 +86,14 @@
         .getElementById("openFolderModal")
         .addEventListener("click", () => {
           document.getElementById("folderModal").classList.remove("hidden");
+          document.getElementById("folderName").focus();
         });
 
       document
         .getElementById("cancelCreateFolder")
         .addEventListener("click", () => {
           document.getElementById("folderModal").classList.add("hidden");
+          document.getElementById("folderName").value = "";
         });
     </script>
   </body>
