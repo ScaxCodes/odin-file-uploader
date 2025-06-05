@@ -30,13 +30,11 @@ router.post(
   })
 );
 
-router.get("/dashboard", ensureAuthenticated, viewController.renderDashboard);
+router.use("/dashboard", ensureAuthenticated);
 
-router.post(
-  "/dashboard/folders",
-  ensureAuthenticated,
-  folderController.addFolder
-);
+router.get("/dashboard", viewController.renderDashboard);
+
+router.post("/dashboard/folders", folderController.addFolder);
 
 router.get("/logout", (req, res, next) => {
   req.logout((err) => {
