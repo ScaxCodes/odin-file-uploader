@@ -1,8 +1,7 @@
-const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const prisma = require("../db/prisma");
 
-const addUser = asyncHandler(async (req, res) => {
+const addUser = async (req, res) => {
   const { username, password } = req.body;
   const formData = { username };
 
@@ -28,7 +27,7 @@ const addUser = asyncHandler(async (req, res) => {
 
     throw err;
   }
-});
+};
 
 module.exports = {
   addUser,
