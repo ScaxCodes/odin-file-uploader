@@ -15,11 +15,12 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  username     String   @unique
+  id           Int         @id @default(autoincrement())
+  username     String      @unique
   password     String
-  registerDate DateTime @default(now())
+  registerDate DateTime    @default(now())
   files        File[]
+  directories  Directory[]
 }
 
 model Directory {
@@ -27,6 +28,7 @@ model Directory {
   name      String
   createdAt DateTime @default(now())
   userId    Int
+  user      User     @relation(fields: [userId], references: [id])
   files     File[]
 }
 
