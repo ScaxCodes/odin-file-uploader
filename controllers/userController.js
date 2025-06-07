@@ -12,6 +12,9 @@ const addUser = async (req, res) => {
       data: {
         username,
         password: hashedPassword,
+        directories: {
+          create: [{ name: "Home" }, { name: "Work" }, { name: "Projects" }],
+        },
       },
     });
 
