@@ -13,7 +13,7 @@ const addFolder = asyncHandler(async (req, res) => {
   });
 
   console.log("New folder created:", folder);
-  res.redirect("/dashboard");
+  res.redirect("/dashboard?folder=" + folder.id);
 });
 
 module.exports = {
