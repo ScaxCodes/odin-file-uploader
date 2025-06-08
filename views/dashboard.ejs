@@ -54,9 +54,14 @@
       </section>
     </div>
 
-    <div id="folderModal" class="modal hidden">
+    <div id="folderModal" class="modal <%= error ? '' : 'hidden' %>">
       <div class="modal-content">
         <h3>Create a New Folder</h3>
+
+        <% if (error !== null) { %>
+        <div class="error-message"><%= error %></div>
+        <% } %>
+
         <form action="/dashboard/folders" method="POST">
           <label for="folderName">Folder Name</label>
           <input
@@ -92,9 +97,24 @@
       document
         .getElementById("cancelCreateFolder")
         .addEventListener("click", () => {
+          const errorMessage = document.querySelector(".error-message");
+
           document.getElementById("folderModal").classList.add("hidden");
           document.getElementById("folderName").value = "";
+          if (errorMessage) errorMessage.style.display = "none";
         });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("folderModal");
+
+        // If modal is visible by default (error provided), focus the input
+        if (!modal.classList.contains("hidden")) {
+          const input = document.getElementById("folderName");
+          if (input) {
+            input.focus();
+          }
+        }
+      });
     </script>
   </body>
 </html>
